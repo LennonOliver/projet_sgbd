@@ -5,7 +5,7 @@ import { UsersService } from 'src/users/users.service';
 @Injectable()
 export class UsersGeneratorService {
   constructor(private readonly userService: UsersService) {}
-  generate() {
+  getRandomUser() {
     return {
       email: faker.internet.email(),
       firstname: faker.person.firstName(),
@@ -13,5 +13,15 @@ export class UsersGeneratorService {
       password: faker.internet.password(),
       username: faker.internet.username(),
     };
+  }
+
+  async generate() {
+    const users = faker.helpers.multiple(this.getRandomUser, {
+      count: 100,
+    });
+
+    const response = await this.userService.create(users);
+
+    return response;
   }
 }
