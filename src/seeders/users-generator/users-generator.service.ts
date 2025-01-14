@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { faker } from '@faker-js/faker';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class UsersGeneratorService {
+  constructor(private readonly userService: UsersService) {}
   generate() {
     return {
       email: faker.internet.email(),
