@@ -15,9 +15,9 @@ export class UsersGeneratorService {
     };
   }
 
-  async generate() {
+  async generate(count = 1) {
     const users = faker.helpers.multiple(this.getRandomUser, {
-      count: 100,
+      count: count,
     });
 
     const response = await this.userService.create(users);
